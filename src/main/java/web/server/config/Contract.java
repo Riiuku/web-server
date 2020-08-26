@@ -1,4 +1,4 @@
-package config;
+package web.server.config;
 
 public class Contract {
 

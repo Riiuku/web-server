@@ -1,6 +1,5 @@
-package config;
+package web.server.config;
 
-import org.apache.logging.log4j.core.jmx.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
