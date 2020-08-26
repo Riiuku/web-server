@@ -4,6 +4,7 @@ import web.server.config.ServerProperties;
 import web.server.domain.HttpMethod;
 import web.server.exception.HttpRequestException;
 import web.server.exception.PortAssignedException;
+import web.server.factory.RequestHandlerFactory;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -37,15 +38,7 @@ public class Main {
 
         HttpMethod httpMethod = HttpMethod.valueOf(method);
 
-        switch (httpMethod) {
-            case GET:
-            case PUT:
-            case POST:
-            case PATCH:
-            case DELETE:
-            case OPTIONS:
-        }
-
+        RequestHandlerFactory.createRequestHandler(httpMethod);
 
         out.write("HTTP/1.1 200 OK\r\n");
         out.write("\r\n");
