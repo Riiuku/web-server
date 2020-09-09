@@ -2,20 +2,24 @@ package web.server;
 
 import web.server.config.ServerProperties;
 import web.server.domain.HttpMethod;
+import web.server.domain.Request;
 import web.server.exception.HttpRequestException;
 import web.server.exception.PortAssignedException;
 import web.server.factory.RequestHandlerFactory;
+import web.server.handler.request.RequestHandler;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+
+import static web.server.config.Contract.EMPTY;
 import static web.server.config.Contract.SERVER_PORT;
 
 
 public class Main {
-    private static final String EMPTY = " ";
+
 
     public static void main(String... args) {
         try (ServerSocket socket = new ServerSocket(Integer.parseInt(ServerProperties.has(SERVER_PORT) ? ServerProperties.get(SERVER_PORT) : "8080"), 0, InetAddress.getByName(null))) {
@@ -38,11 +42,10 @@ public class Main {
 
         HttpMethod httpMethod = HttpMethod.valueOf(method);
 
-        RequestHandlerFactory.createRequestHandler(httpMethod);
+        RequestHandler requestHandler = RequestHandlerFactory.createRequestHandler(httpMethod);
+        requestHandler.handle(new Request(httpMethod, firstLine.split(EMPTY)[1], null), out);
 
-        out.write("HTTP/1.1 200 OK\r\n");
-        out.write("\r\n");
-        out.write("<TITLE>XDDD</TITLE>");
+
         out.close();
         in.close();
         clientSocket.close();
