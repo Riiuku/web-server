@@ -1,27 +1,31 @@
 package web.server.domain;
 
-import web.server.config.ServerProperties;
-
 import static web.server.config.Contract.EMPTY;
+import static web.server.config.Contract.HTTP;
 
 public enum HttpStatus {
-    OK(200),
-    CREATED(201),
-    NOT_FOUND(404),
-    INTERNAL_SERVER_ERROR(500);
+    OK(200, "OK"),
+    CREATED(201, "Created"),
+    NOT_FOUND(404, "Not Found"),
+    INTERNAL_SERVER_ERROR(500, "Internal Server Error");
 
     private int value;
+    private String normal;
 
-    HttpStatus(int i) {
-        value = i;
+    HttpStatus(int value, String normal) {
+        this.value = value;
+        this.normal = normal;
     }
-
 
     public int getValue() {
         return value;
     }
 
+    public String getNormal() {
+        return normal;
+    }
+
     public static String getResponseFor(HttpStatus httpStatus) {
-        return ServerProperties.get("http") + EMPTY + httpStatus.getValue() + EMPTY + httpStatus + "\r\n";
+        return HTTP + EMPTY + httpStatus.getValue() + EMPTY + httpStatus.getNormal() + "\r\n";
     }
 }

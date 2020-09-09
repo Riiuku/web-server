@@ -1,6 +1,5 @@
 package web.server;
 
-import web.server.config.ServerProperties;
 import web.server.domain.HttpMethod;
 import web.server.domain.Request;
 import web.server.exception.HttpRequestException;
@@ -22,7 +21,7 @@ public class Main {
 
 
     public static void main(String... args) {
-        try (ServerSocket socket = new ServerSocket(Integer.parseInt(ServerProperties.has(SERVER_PORT) ? ServerProperties.get(SERVER_PORT) : "8080"), 0, InetAddress.getByName(null))) {
+        try (ServerSocket socket = new ServerSocket(SERVER_PORT, 0, InetAddress.getByName(null))) {
             while (true) {
                 connection(socket.accept());
             }
