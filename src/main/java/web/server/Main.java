@@ -35,6 +35,7 @@ public class Main {
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 
         String firstLine = in.readLine();
+        System.out.println(firstLine);
         String method = firstLine.split(EMPTY)[0];
         if (!HttpMethod.contains(method))
             throw new HttpRequestException("Problem occurred, when tried to read request");
