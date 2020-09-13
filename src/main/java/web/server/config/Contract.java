@@ -9,4 +9,5 @@ public class Contract {
     public static final String CONTENT_PATH = "content/";
     public static final String EMPTY = " ";
     public static final String INDEX = "index.html";
+    public static final String DOT = "\\.";
 }
